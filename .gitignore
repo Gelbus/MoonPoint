@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/ldem_1024_00n_15n_000_030.img
+/ldem_1024_00n_15n_000_030.lbl
