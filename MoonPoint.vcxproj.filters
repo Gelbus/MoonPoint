@@ -19,4 +19,12 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ldem_1024_00n_15n_000_030.img">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+    <None Include="ldem_1024_00n_15n_000_030.lbl">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+  </ItemGroup>
 </Project>
