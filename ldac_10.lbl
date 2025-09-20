@@ -1,0 +1,85 @@
+PDS_VERSION_ID            = "PDS3"
+
+/*** GENERAL DATA DESCRIPTION PARAMETERS ***/
+PRODUCT_VERSION_ID        = "V1.0"
+DATA_SET_ID               = "LRO-L-LOLA-4-GDR-V1.0"
+PRODUCT_ID                = "LDAC_10"
+INSTRUMENT_HOST_NAME      = "LUNAR RECONNAISSANCE ORBITER"
+INSTRUMENT_NAME           = "LUNAR ORBITER LASER ALTIMETER"
+INSTRUMENT_ID             = "LOLA"
+MISSION_PHASE_NAME        = "NOMINAL MISSION"
+TARGET_NAME               = MOON
+START_TIME                = 2009-09-15T21:52:46
+STOP_TIME                 = 2010-09-16T19:15:57
+PRODUCT_CREATION_TIME     = 2015-12-15T00:00:00
+PRODUCER_ID               = LRO_LOLA_TEAM
+PRODUCER_FULL_NAME        = "DAVID E. SMITH"
+PRODUCER_INSTITUTION_NAME = "GODDARD SPACE FLIGHT CENTER"
+DESCRIPTION               = "This data product is a map of data counts
+   corresponding to the gridded data product of the corresponding filename,
+   of the Moon at a resolution of 10 pix/deg by 10 pix/deg,
+   based on data acquired through the nominal mission phases by laser 1 of
+   the LOLA instrument. The gridded albedo data product in cylindrical
+   projection is the source for this data set, which contains the number of
+   observations per pixel that have been used to produce it.
+   
+   The map is in the form of a binary table with one row for each
+   0.1 degrees of latitude, pixel registered.
+
+   This label describes an IMG file in the form of a binary resampling
+   to pixel registration.
+"
+
+OBJECT                    = UNCOMPRESSED_FILE
+FILE_NAME                 = "LDAC_10.IMG"
+RECORD_TYPE               = FIXED_LENGTH
+FILE_RECORDS              = 1800
+RECORD_BYTES              = 7200
+^IMAGE                    = "LDAC_10.IMG"
+
+  OBJECT                  = IMAGE
+    NAME                  = COUNTS
+    DESCRIPTION           = "Each sample represents the number of data
+      points of data used to generate the corresponding global
+      gridded albedo data product (map).  It is generated using
+      LOLA laser 1 data produced by the LOLA team."
+    LINES                 = 1800
+    LINE_SAMPLES          = 3600
+    MAXIMUM               = 384
+    MINIMUM               = 1
+    SAMPLE_TYPE           = LSB_INTEGER
+    SAMPLE_BITS           = 16
+  END_OBJECT              = IMAGE
+END_OBJECT                = UNCOMPRESSED_FILE
+
+OBJECT                    = IMAGE_MAP_PROJECTION
+ ^DATA_SET_MAP_PROJECTION     = "DSMAP.CAT"
+ MAP_PROJECTION_TYPE          = "SIMPLE CYLINDRICAL"
+ MAP_RESOLUTION               = 10 <pix/deg>
+ A_AXIS_RADIUS                = 1737.4 <km>
+ B_AXIS_RADIUS                = 1737.4 <km>
+ C_AXIS_RADIUS                = 1737.4 <km>
+ FIRST_STANDARD_PARALLEL      = 'N/A'
+ SECOND_STANDARD_PARALLEL     = 'N/A'
+ POSITIVE_LONGITUDE_DIRECTION = "EAST"
+ CENTER_LATITUDE              = 0. <deg>
+ CENTER_LONGITUDE             = 180. <deg>
+ REFERENCE_LATITUDE           = 'N/A'
+ REFERENCE_LONGITUDE          = 'N/A'
+ LINE_FIRST_PIXEL             = 1
+ LINE_LAST_PIXEL              = 1800
+ SAMPLE_FIRST_PIXEL           = 1
+ SAMPLE_LAST_PIXEL            = 3600
+ MAP_PROJECTION_ROTATION      = 0.0
+ MAP_SCALE                    = 3.0323350424 <km/pix>
+ MAXIMUM_LATITUDE             = 90 <deg>
+ MINIMUM_LATITUDE             = -90 <deg>
+ WESTERNMOST_LONGITUDE        = 0 <deg>
+ EASTERNMOST_LONGITUDE        = 360 <deg>
+ LINE_PROJECTION_OFFSET       = 899.5 <pix>
+ SAMPLE_PROJECTION_OFFSET     = 1799.5 <pix>
+ COORDINATE_SYSTEM_TYPE       = "BODY-FIXED ROTATING"
+ COORDINATE_SYSTEM_NAME       = "MEAN EARTH/POLAR AXIS OF DE421"
+END_OBJECT                = IMAGE_MAP_PROJECTION
+
+END
