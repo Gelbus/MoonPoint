@@ -1,8 +1,5 @@
-#include <cstdint>
-#include <fstream>
-#include <string>
+#include "MoonPoint.h"
 #include <iostream>
-#include <cmath>
 
 /*
 Для функции, которая получает высоту в цилиндрической проекции
@@ -40,66 +37,18 @@
 	покрывающий область от 15° ю.ш. до экватора и от 120° до 150° долготы.
 */
 
-unsigned long long int LINES = 15360;	// высота изображения в пикселях (строки, широта)
-unsigned long long int LINE_SAMPLES = 30720;	// ширина изображения в пиеселях (столбцы, долгота)
-unsigned long long int SAMPLE_BITS = 16;		// вес одного значения в байтах
-unsigned long long int OFFSET = 1737400;  // [м] смещение относительно центра, если нужен радиус, а не высота относительно референсной сферы
-
-std::int64_t MINIMUM_LATITUDE = 0;		// [град]
-std::int64_t MAXIMUM_LATITUDE = 15;		// [град]
-
-std::int64_t WESTERNMOST_LONGITUDE = 0;		// [град]
-std::int64_t EASTERNMOST_LONGITUDE = 30;	// [град]
-
-std::uint16_t MAP_RESOLUTION = 1024;
-
-double SCALING_FACTOR = 0.5;
-double pixel_size = 1.0 / 1024.0;
-
-double get_height_cylindrical_projection(int latitude, int longitude)
-{
-	std::uint8_t buf[2];	// буфер из 2 байт в который будем читать из файла
-	std::uint16_t height;	// конечная переменная высоты
-
-	std::string filename = "ldem_1024_00n_15n_000_030.img";	// имя файла, позже нужно будет перенести это в класс
-
-	std::ifstream input(filename, std::ios::binary);		// создаем поток ввода
-
-	if (
-		latitude < MINIMUM_LATITUDE || latitude > MAXIMUM_LATITUDE ||
-		longitude < WESTERNMOST_LONGITUDE || longitude > EASTERNMOST_LONGITUDE
-		) exit(404);	// проверяем на корректность ввода, иначе выходим из файла
-
-	int i = (int)std::floor((MAXIMUM_LATITUDE - latitude) * MAP_RESOLUTION);	// считаем позицию по строке
-	i = i > LINES - 1 ? LINES - 1 : i;
-
-	int j = (int)std::floor((longitude - WESTERNMOST_LONGITUDE) * MAP_RESOLUTION);	// считаем позицию по столбцу
-	j = j > LINE_SAMPLES - 1 ? LINE_SAMPLES - 1 : j;
-
-
-	int file_offset = (i * LINE_SAMPLES + j) * sizeof(int16_t);		// считаем смещение корретки в файле
-
-
-	input.seekg(file_offset);	// смещаем корретку
-	input.read((char*)&buf, 2);	// читаем из файла в буфер
-	height = (buf[1] << 8 | buf[0]); // преобразовываем в Little Endian и записываем в переменную высоты
-
-	return height * SCALING_FACTOR;
-}
-
-
-
-//std::int64_t LINES;	
-
-
-
 int main()
 {
 
 	// пока сделан для файла LDEM_1024_00N_15N_000_030.IMG по заданию 3 вариант
+	std::string filename = "ldem_1024_00n_15n_000_030.img";	// имя файла, позже нужно будет перенести это в класс
 	int latitude, longitude;
 	std::cin >> latitude >> longitude;
 
-	std::cout << get_height_cylindrical_projection(latitude, longitude);
+	mopo::MapTile map_tile = mopo::MapTile();
+
+	map_tile.load_map_tile(&filename);
+
+	std::cout << map_tile.get_height_cylindrical_projection(latitude, longitude);
 
 }
